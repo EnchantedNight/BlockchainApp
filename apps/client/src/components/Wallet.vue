@@ -12,7 +12,7 @@ const { account, connected } = useTonConnect();
         :style="{
           display: 'flex',
           flexDirection: 'column',
-          fontFamily: 'monospace',
+          fontFamily: 'Inter, sans-serif',
           fontSize: '17px',
         }"
       >
