@@ -1,11 +1,20 @@
-import { computed } from "vue";
+import { ref } from "vue";
 import tonConnectUI from "../tonClient";
 
+const wallet = ref(tonConnectUI.wallet);
+const connected = ref(tonConnectUI.connected);
+const account = ref(tonConnectUI.account);
+
+tonConnectUI.onStatusChange((newWallet) => {
+  wallet.value = newWallet;
+  connected.value = tonConnectUI.connected;
+  account.value = tonConnectUI.account;
+});
+
 export const useTonConnect = () => {
-  const tonConnectRef = computed(() => tonConnectUI);
   return {
-    wallet: tonConnectRef.value.wallet,
-    account: tonConnectRef.value.account,
-    connected: tonConnectRef.value.connected,
+    wallet,
+    connected,
+    account,
   };
 };
