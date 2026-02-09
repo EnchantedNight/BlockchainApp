@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Connect from "./components/Connect.vue";
 import Wallet from "./components/Wallet.vue";
-import Theme from "./components/Theme.vue";
 </script>
 
 <template>
@@ -22,7 +21,6 @@ import Theme from "./components/Theme.vue";
       >
         <Connect />
         <Wallet />
-        <Theme />
       </div>
     </div>
   </div>
