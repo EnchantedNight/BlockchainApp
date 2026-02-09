@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "inlineSourceMap": true,
+    "sourceRoot": ".",
+    "outDir": "./dist"
+  }
+}
