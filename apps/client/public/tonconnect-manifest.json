@@ -1,5 +1,5 @@
 {
-  "url": "http://localhost:5173",
+  "url": "https://blockchain-client-tau.vercel.app",
   "name": "TonMonorepoClient",
   "iconUrl": "https://ton.org/_next/static/media/favicon-32x32.5a296e6c.png"
 }
