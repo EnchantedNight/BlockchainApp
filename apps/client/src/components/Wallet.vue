@@ -13,7 +13,7 @@ const { account, connected } = useTonConnect();
           display: 'flex',
           flexDirection: 'column',
           fontFamily: 'Inter, sans-serif',
-          fontSize: '17px',
+          fontSize: '13px',
         }"
       >
         <h2>Wallet - {{ account.address }}</h2>
