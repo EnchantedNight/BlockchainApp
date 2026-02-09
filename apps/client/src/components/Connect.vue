@@ -9,9 +9,6 @@ onMounted(() => {
   tonConnectUI.uiOptions = {
     buttonRootId: "connectButton",
   };
-  tonConnectUI.onStatusChange((wallet) => {
-    console.log("Status:", wallet);
-  });
 });
 </script>
 
