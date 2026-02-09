@@ -7,6 +7,6 @@ export default new TonConnectUI({
     mode: "off",
   },
   uiPreferences: {
-    theme: THEME.DARK,
+    theme: "SYSTEM",
   },
 });
