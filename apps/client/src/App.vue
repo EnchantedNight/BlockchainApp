@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import Connect from "./components/Connect.vue";
 import Wallet from "./components/Wallet.vue";
+
+onMounted(() => {
+  window.Telegram.WebApp.expand();
+  window.Telegram.WebApp.disableVerticalSwipes();
+});
 </script>
 
 <template>
