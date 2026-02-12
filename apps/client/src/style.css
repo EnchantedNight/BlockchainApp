@@ -1,25 +1,20 @@
-:root {
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #121a20;
-}
-
 * {
   box-sizing: border-box;
 }
 
-html,
-body {
-  margin: 0 !important; /* Override your 10px margin */
-  padding: 5px; /* Move margin here as padding */
-  height: var(--tg-viewport-height, 100vh); /* Fallback to vh */
-  width: var(--tg-viewport-width, 100vw);
-  overflow: hidden;
+:root {
+  /* your existing */
 }
 
+html,
 body {
-  display: flex;
-  min-width: 320px;
+  margin: 0;
+  padding: 5px;
+  height: var(--tg-viewport-height, 100vh);
+  width: var(--tg-viewport-width, 100vw);
+  overflow: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 #root {
@@ -28,4 +23,21 @@ body {
   max-width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Target text elements specifically */
+p,
+span,
+div,
+h1,
+h2,
+h3,
+label,
+.text-content {
+  /* Adjust selectors to your components */
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
