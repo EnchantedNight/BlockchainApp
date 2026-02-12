@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@telegram-apps/sdk": "^3.11.8",
+    "@tma.js/sdk": "^3.1.6",
     "@ton/core": "^0.63.0",
     "@ton/ton": "^16.2.2",
     "@tonconnect/sdk": "^3.4.1",
