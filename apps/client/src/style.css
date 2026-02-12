@@ -4,21 +4,28 @@
   background-color: #121a20;
 }
 
-body {
-  margin: 5px;
-  display: flex;
-  min-width: 320px;
-  /* min-height: 100vh; */
-  width: 100vw;
+* {
+  box-sizing: border-box;
 }
 
 html,
 body {
+  margin: 0 !important; /* Override your 10px margin */
+  padding: 5px; /* Move margin here as padding */
+  height: var(--tg-viewport-height, 100vh); /* Fallback to vh */
+  width: var(--tg-viewport-width, 100vw);
   overflow: hidden;
-  height: 100%;
-  margin: 10px;
 }
+
+body {
+  display: flex;
+  min-width: 320px;
+}
+
 #root {
-  height: 100vh; /* Or 100dvh for dynamic viewport */
-  overflow-y: auto; /* Allows scrolling *inside* app, not the whole page */
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
