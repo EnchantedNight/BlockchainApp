@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-:root {
-  /* your existing */
-}
-
 html,
 body {
   margin: 0;
@@ -15,6 +11,8 @@ body {
   overflow: hidden;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #121a20;
 }
 
 #root {
