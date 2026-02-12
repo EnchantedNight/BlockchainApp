@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CHAIN } from "@tonconnect/sdk";
-import { useTonConnect } from "src/composables/tonConnect";
+import { useTonConnect } from "../composables/tonConnect";
 
 const { wallet, connector, connected } = useTonConnect();
 

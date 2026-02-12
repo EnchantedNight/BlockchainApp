@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { useTonConnect } from "../composables/tonConnect";
 import tonConnectUI from "../tonClient";
 
 onMounted(() => {
