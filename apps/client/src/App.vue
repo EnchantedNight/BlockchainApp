@@ -2,13 +2,13 @@
 import { onMounted } from "vue";
 import Connect from "./components/Connect.vue";
 import Wallet from "./components/Wallet.vue";
+import Pay from "./components/Pay.vue";
 
 onMounted(() => {
   window.Telegram.WebApp.expand();
   window.Telegram.WebApp.disableVerticalSwipes();
   window.Telegram.WebApp.ready();
 
-  // Listen for viewport changes
   window.Telegram.WebApp.onEvent("viewportChanged", () => {
     document.documentElement.style.setProperty(
       "--tg-viewport-height",
@@ -40,6 +40,7 @@ onMounted(() => {
       >
         <Connect />
         <Wallet />
+        <Pay />
       </div>
     </div>
   </div>
