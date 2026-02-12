@@ -2,7 +2,10 @@
 import { useTonConnect } from "../composables/tonConnect";
 import { CHAIN } from "@tonconnect/sdk";
 
-const { account, connected } = useTonConnect();
+// const { account, connected } = useTonConnect();
+const address = "UQBbRjXvoc5j2KLVtrOgGgr1XIQgc0e6B1UwRpIg-qNdOerG";
+const connected = true;
+const chain = CHAIN.MAINNET;
 </script>
 
 <template>
@@ -16,13 +19,16 @@ const { account, connected } = useTonConnect();
           fontSize: '13px',
         }"
       >
-        <h2>Wallet - {{ account.address }}</h2>
+        <h2>Wallet - {{ address }}</h2>
+        <!-- account.address -->
         <h2>
           {{
-            account.chain == CHAIN.MAINNET
-              ? "mainnet"
-              : account.chain == CHAIN.TESTNET
-                ? "testnet"
+            chain == CHAIN.MAINNET
+              ? // account.chain
+                "mainnet"
+              : chain == CHAIN.TESTNET
+                ? // account.chain
+                  "testnet"
                 : undefined
           }}
         </h2>
