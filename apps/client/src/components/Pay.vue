@@ -31,7 +31,7 @@ const sendTransaction = async () => {
       {
         address: account.value.address,
         amount: "50000000",
-        payload: Buffer.from("TonMonorepo Tx", "base64").toString(),
+        payload: btoa("TonMonorepo Tx"),
       },
     ],
   };
