@@ -61,6 +61,7 @@ const sendTransaction = async () => {
       transition: 'all 0.2s ease',
       transform: isHovered ? 'scale(1.05)' : 'scale(1)',
       cursor: 'pointer',
+      whiteSpace: 'nowrap',
     }"
     v-if="connected"
     @click="sendTransaction"
