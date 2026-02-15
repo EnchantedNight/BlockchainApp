@@ -28,6 +28,8 @@ const transaction = {
   ],
 };
 
+console.log(connected);
+
 const isHovered = ref(false);
 </script>
 
