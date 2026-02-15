@@ -28,12 +28,11 @@ const transaction = {
   ],
 };
 
-console.log(connected);
-
 const isHovered = ref(false);
 </script>
 
 <template>
+  <!-- v-if="connected" -->
   <div
     :style="{
       margin: '10px',
@@ -51,7 +50,6 @@ const isHovered = ref(false);
       transform: isHovered ? 'scale(1.05)' : 'scale(1)',
       cursor: 'pointer',
     }"
-    v-if="connected"
     @click="
       async () => {
         await connector.sendTransaction(transaction);
