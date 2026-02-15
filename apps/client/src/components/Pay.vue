@@ -15,20 +15,33 @@ const { account, connector, connected } = useTonConnect();
 //   sendTransaction: async (ts: any) => {},
 // };
 
-const transaction = {
-  validUntil: Math.floor(Date.now() / 1000) + 300,
-  network: CHAIN.TESTNET,
-  from: account.value.address,
-  messages: [
-    {
-      address: account.value.address,
-      amount: "10000000",
-      payload: "TonMonorepo Tx",
-    },
-  ],
-};
-
 const isHovered = ref(false);
+
+const sendTransaction = async () => {
+  if (!account.value) {
+    console.error("Account not connected");
+    return;
+  }
+
+  const transaction = {
+    validUntil: Math.floor(Date.now() / 1000) + 300,
+    network: CHAIN.TESTNET,
+    from: account.value.address,
+    messages: [
+      {
+        address: account.value.address,
+        amount: "10000000",
+        payload: "TonMonorepo Tx",
+      },
+    ],
+  };
+
+  try {
+    await connector.value.sendTransaction(transaction);
+  } catch (e) {
+    console.error("Transaction failed", e);
+  }
+};
 </script>
 
 <template>
@@ -50,11 +63,7 @@ const isHovered = ref(false);
       transform: isHovered ? 'scale(1.05)' : 'scale(1)',
       cursor: 'pointer',
     }"
-    @click="
-      async () => {
-        await connector.sendTransaction(transaction);
-      }
-    "
+    @click="sendTransaction"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
   >
