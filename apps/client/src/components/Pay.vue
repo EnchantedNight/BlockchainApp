@@ -30,7 +30,7 @@ const sendTransaction = async () => {
     messages: [
       {
         address: account.value.address,
-        amount: "10000000",
+        amount: "50000000",
         payload: "TonMonorepo Tx",
       },
     ],
@@ -62,6 +62,8 @@ const sendTransaction = async () => {
       transform: isHovered ? 'scale(1.05)' : 'scale(1)',
       cursor: 'pointer',
       whiteSpace: 'nowrap',
+      backgroundColor: 'black',
+      color: 'white',
     }"
     v-if="connected"
     @click="sendTransaction"
