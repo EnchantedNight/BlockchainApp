@@ -2,6 +2,7 @@
 import { CHAIN } from "@tonconnect/sdk";
 import { useTonConnect } from "../composables/tonConnect";
 import { ref } from "vue";
+import { Address } from "@ton/core";
 
 const { account, connector, connected } = useTonConnect();
 
@@ -23,13 +24,19 @@ const sendTransaction = async () => {
     return;
   }
 
+  const rawAddress = Address.parseRaw(account.value.address).toString({
+    urlSafe: false,
+    bounceable: true,
+    testOnly: true, // For testnet
+  });
+
   const transaction = {
     validUntil: Math.floor(Date.now() / 1000) + 300,
     network: CHAIN.TESTNET,
-    from: account.value.address,
+    from: rawAddress,
     messages: [
       {
-        address: account.value.address,
+        address: rawAddress,
         amount: "50000000",
         payload: btoa("TonMonorepo Tx"),
       },
