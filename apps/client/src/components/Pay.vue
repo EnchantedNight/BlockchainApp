@@ -31,7 +31,7 @@ const sendTransaction = async () => {
       {
         address: account.value.address,
         amount: "50000000",
-        payload: "TonMonorepo Tx",
+        payload: Buffer.from("TonMonorepo Tx", "base64").toString(),
       },
     ],
   };
@@ -40,6 +40,7 @@ const sendTransaction = async () => {
     await connector.value.sendTransaction(transaction);
   } catch (e) {
     console.error("Transaction failed", e);
+    throw new Error("Error sending tx!");
   }
 };
 </script>
@@ -64,6 +65,7 @@ const sendTransaction = async () => {
       whiteSpace: 'nowrap',
       backgroundColor: 'black',
       color: 'white',
+      boxSizing: 'border-box',
     }"
     v-if="connected"
     @click="sendTransaction"
