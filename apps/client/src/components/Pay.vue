@@ -45,7 +45,6 @@ const sendTransaction = async () => {
 </script>
 
 <template>
-  <!-- v-if="connected" -->
   <div
     :style="{
       margin: '10px',
@@ -63,6 +62,7 @@ const sendTransaction = async () => {
       transform: isHovered ? 'scale(1.05)' : 'scale(1)',
       cursor: 'pointer',
     }"
+    v-if="connected"
     @click="sendTransaction"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
