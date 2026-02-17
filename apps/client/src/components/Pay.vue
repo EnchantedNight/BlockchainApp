@@ -5,17 +5,6 @@ import { ref } from "vue";
 import { Address, beginCell } from "@ton/core";
 
 const { account, connector, connected } = useTonConnect();
-
-// const account = {
-//   value: {
-//     address: "",
-//   },
-// };
-
-// const connector = {
-//   sendTransaction: async (ts: any) => {},
-// };
-
 const isHovered = ref(false);
 
 const sendTransaction = async () => {
@@ -79,6 +68,7 @@ const sendTransaction = async () => {
       display: 'flex',
       letterSpacing: '-0.01em',
       maxWidth: 'fit-content',
+      userSelect: 'none',
     }"
     v-if="connected"
     @click="sendTransaction"
