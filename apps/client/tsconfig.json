@@ -9,7 +9,8 @@
     "moduleResolution": "bundler",
     "inlineSourceMap": true,
     "sourceRoot": ".",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "allowJs": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/types/auto.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/types/auto.d.ts", "src/**/*.vue"]
 }
