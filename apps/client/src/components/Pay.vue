@@ -61,7 +61,7 @@ const sendTransaction = async () => {
       marginLeft: '0px',
       borderColor: '#fff',
       borderWidth: '2px',
-      padding: '5px',
+      padding: '10px',
       borderStyle: 'solid',
       fontFamily: 'monospace',
       fontWeight: 'bold',
@@ -72,8 +72,8 @@ const sendTransaction = async () => {
       transform: isHovered ? 'scale(1.05)' : 'scale(1)',
       cursor: 'pointer',
       whiteSpace: 'nowrap',
-      backgroundColor: 'black',
-      color: 'white',
+      backgroundColor: 'white',
+      color: 'black',
       boxSizing: 'border-box',
     }"
     v-if="connected"

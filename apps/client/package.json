@@ -16,7 +16,6 @@
     "@tonconnect/sdk": "^3.4.1",
     "@tonconnect/ui": "^2.4.1",
     "pinia": "^3.0.4",
-    "vite-plugin-node-polyfills": "^0.25.0",
     "vue": "^3.5.24",
     "vue-tsc": "^3.2.4"
   },
@@ -25,6 +24,7 @@
     "@types/telegram-web-app": "^9.1.1",
     "@vitejs/plugin-vue": "^6.0.1",
     "typescript": "~5.9.3",
-    "vite": "^7.2.4"
+    "vite": "^7.2.4",
+    "vite-plugin-node-polyfills": "^0.25.0"
   }
 }
