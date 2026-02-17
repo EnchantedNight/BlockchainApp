@@ -21,7 +21,6 @@ export const useTonConnect = (): {
   account: Ref<Account>;
   connector: Ref<ITonConnect>;
   address: Ref<string>;
-  $address: string;
 } => {
   return {
     wallet,
@@ -29,6 +28,5 @@ export const useTonConnect = (): {
     account,
     connector,
     address,
-    $address: unref(address),
   };
 };
