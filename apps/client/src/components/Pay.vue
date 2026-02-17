@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { CHAIN } from "@tonconnect/sdk";
-import { useTonConnect } from "../composables/tonConnect";
-import { ref } from "vue";
-import { Address, beginCell } from "@ton/core";
+import { beginCell } from "@ton/core";
+import { WalletUtils } from "@utils/wallet";
 
-const { account, connector, connected } = useTonConnect();
+const { account, connector, connected, address } = useTonConnect();
 const isHovered = ref(false);
 
 const sendTransaction = async () => {
@@ -13,11 +12,7 @@ const sendTransaction = async () => {
     return;
   }
 
-  const rawAddress = Address.parseRaw(account.value.address).toString({
-    urlSafe: false,
-    bounceable: true,
-    testOnly: true, // For testnet
-  });
+  const rawAddress = WalletUtils.parseRawAddress(address.value);
 
   const payload = beginCell().storeStringTail("TonMonorepo Tx").endCell();
 

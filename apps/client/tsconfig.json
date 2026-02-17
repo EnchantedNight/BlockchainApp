@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "@utils/*": ["./src/utils/*"],
+      "$stores": ["./src/stores/index.ts"]
+    },
     "module": "esnext",
     "moduleResolution": "bundler",
     "inlineSourceMap": true,
     "sourceRoot": ".",
     "outDir": "./dist"
-  }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/types/auto.d.ts"]
 }

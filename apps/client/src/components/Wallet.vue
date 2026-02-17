@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useTonConnect } from "../composables/tonConnect";
 import { CHAIN } from "@tonconnect/sdk";
+import { WalletUtils } from "@utils/wallet";
 
-const { account, connected } = useTonConnect();
+const { account, connected, address } = useTonConnect();
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const { account, connected } = useTonConnect();
           fontSize: '13px',
         }"
       >
-        <h2>Wallet - {{ account.address }}</h2>
+        <h2>Wallet - {{ WalletUtils.parseRawAddress(address) }}</h2>
         <h2>
           {{
             account.chain == CHAIN.MAINNET
