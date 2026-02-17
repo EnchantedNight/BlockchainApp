@@ -10,6 +10,13 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "test": {
+      "dependsOn": ["^test"],
+      "env": ["WALLET_MNEMONIC"]
+    },
+    "fmt": {
+      "dependsOn": ["^fmt"]
     }
   }
 }

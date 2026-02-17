@@ -2,6 +2,8 @@
 .env
 .turbo
 .vercel
+**/.cache-synpress
 out/
 **/build
 **/dist
+.env*.local

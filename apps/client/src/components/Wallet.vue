@@ -16,8 +16,8 @@ const { account, connected, address } = useTonConnect();
           fontSize: '13px',
         }"
       >
-        <h2>Wallet - {{ WalletUtils.parseRawAddress(address) }}</h2>
-        <h2>
+        <h2>Wallet - {{ WalletUtils.parseRawAddress(address!!) }}</h2>
+        <h2 v-if="account">
           {{
             account.chain == CHAIN.MAINNET
               ? "mainnet"

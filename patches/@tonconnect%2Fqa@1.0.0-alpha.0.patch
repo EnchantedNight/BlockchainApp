@@ -1,0 +1,58 @@
+diff --git a/dist/index.js b/dist/index.js
+index 2eefdf0758954321f661425e1381cc1a6a6776e0..e9c627efc279e226c1573afaac49fa083563158e 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -1,7 +1,7 @@
+-export { Tonkeeper } from './tonkeeper/Tonkeeper';
+-export { TonConnectWidget } from './TonConnectWidget';
+-export { testWith, launchPersistentContext } from './test';
+-export { tonkeeperFixture } from './tonkeeper/tonkeeperFixture';
+-export { tonkeeperExtension } from './tonkeeper/tonkeeperExtension';
+-export { getExtensionId } from './util';
++export { Tonkeeper } from './tonkeeper/Tonkeeper.js';
++export { TonConnectWidget } from './TonConnectWidget.js';
++export { testWith, launchPersistentContext } from './test.js';
++export { tonkeeperFixture } from './tonkeeper/tonkeeperFixture.js';
++export { tonkeeperExtension } from './tonkeeper/tonkeeperExtension.js';
++export { getExtensionId } from './util.js';
+ //# sourceMappingURL=index.js.map
+\ No newline at end of file
+diff --git a/dist/test.js b/dist/test.js
+index f81380629f020946d5617d825c30930ff91832f2..0321272872ddd8ffc1fa88cd332cbab560da23cb 100644
+--- a/dist/test.js
++++ b/dist/test.js
+@@ -1,6 +1,6 @@
+ import { chromium } from '@playwright/test';
+ import { mergeTests, test as base } from '@playwright/test';
+-import { WalletExtension } from './WalletExtension';
++import { WalletExtension } from './WalletExtension.js';
+ export function launchPersistentContext(extensionPath, slowMo = 0) {
+     const browserArgs = [
+         `--disable-extensions-except=${extensionPath}`,
+diff --git a/dist/tonkeeper/Tonkeeper.js b/dist/tonkeeper/Tonkeeper.js
+index fc10f5acc3a276040ca8f7ab1e66fe2a04a84d4a..f1afbbc7233f0bfe389cd4b44ec8f9023ff372b9 100644
+--- a/dist/tonkeeper/Tonkeeper.js
++++ b/dist/tonkeeper/Tonkeeper.js
+@@ -1,4 +1,4 @@
+-import { WalletExtension } from '../WalletExtension';
++import { WalletExtension } from '../WalletExtension.js';
+ /**
+  * Tonkeeper class for interacting with the Tonkeeper extension in Playwright tests
+  *
+diff --git a/dist/tonkeeper/tonkeeperFixture.js b/dist/tonkeeper/tonkeeperFixture.js
+index c09e88d961092b40c6d49f64540af3c2af82c1a2..0a3f17c040ecb561fe29f8f4287f0dfbd8c60a65 100644
+--- a/dist/tonkeeper/tonkeeperFixture.js
++++ b/dist/tonkeeper/tonkeeperFixture.js
+@@ -1,8 +1,8 @@
+ import { test } from '@playwright/test';
+-import { launchPersistentContext } from '../test';
+-import { getExtensionId } from '../util';
+-import { tonkeeperExtension } from './tonkeeperExtension';
+-import { Tonkeeper } from './Tonkeeper';
++import { launchPersistentContext } from '../test.js';
++import { getExtensionId } from '../util.js';
++import { tonkeeperExtension } from './tonkeeperExtension.js';
++import { Tonkeeper } from './Tonkeeper.js';
+ export const tonkeeperFixture = (mnemonic, slowMo = 0) => {
+     return test.extend({
+         context: async ({ context: _ }, use) => {

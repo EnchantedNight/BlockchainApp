@@ -12,7 +12,7 @@ const sendTransaction = async () => {
     return;
   }
 
-  const rawAddress = WalletUtils.parseRawAddress(address.value);
+  const rawAddress = WalletUtils.parseRawAddress(address.value!!);
 
   const payload = beginCell().storeStringTail("TonMonorepo Tx").endCell();
 
@@ -30,7 +30,7 @@ const sendTransaction = async () => {
   };
 
   try {
-    await connector.value.sendTransaction(transaction);
+    await connector.value!!.sendTransaction(transaction);
   } catch (e) {
     console.error("Transaction failed", e);
     throw new Error("Error sending tx!");
@@ -65,6 +65,7 @@ const sendTransaction = async () => {
       maxWidth: 'fit-content',
       userSelect: 'none',
     }"
+    id="sendFundsButton"
     v-if="connected"
     @click="sendTransaction"
     @mouseenter="isHovered = true"

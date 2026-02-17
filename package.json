@@ -12,10 +12,15 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "fmt": "turbo run fmt",
+    "test": "turbo run test"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "patchedDependencies": {
+    "@tonconnect/qa@1.0.0-alpha.0": "patches/@tonconnect%2Fqa@1.0.0-alpha.0.patch"
+  }
 }

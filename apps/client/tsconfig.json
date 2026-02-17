@@ -5,18 +5,31 @@
       "@utils/*": ["./src/utils/*"],
       "$stores": ["./src/stores/index.ts"]
     },
-    "module": "esnext",
+    "target": "esnext",
+    "strict": true,
+    "noEmit": true,
+    "module": "preserve",
+    "moduleDetection": "force",
     "moduleResolution": "bundler",
     "inlineSourceMap": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
     "sourceRoot": ".",
     "outDir": "./dist",
-    "allowJs": true
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noImplicitOverride": true,
+    "types": [
+      "bun",
+      "@types/node",
+      "@playwright/test",
+      "@types/telegram-web-app"
+    ]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/types/auto.d.ts",
-    "src/**/*.vue",
-    "main.ts"
-  ]
+    "src/**/*.vue"
+  ],
+  "exclude": ["test"]
 }
