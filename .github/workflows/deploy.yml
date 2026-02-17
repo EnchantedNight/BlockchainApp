@@ -16,7 +16,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: Install deps
-        run: bun install
+        run: bun install && bunx playwright install chromium
 
       - name: Format code
         run: bun fmt
