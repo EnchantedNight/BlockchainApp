@@ -67,7 +67,7 @@ const sendTransaction = async () => {
       fontWeight: 'bold',
       fontSize: '15px',
       maxWidth: '105px',
-      borderRadius: '15px',
+      borderRadius: '20px',
       transition: 'all 0.2s ease',
       transform: isHovered ? 'scale(1.05)' : 'scale(1)',
       cursor: 'pointer',
@@ -81,6 +81,12 @@ const sendTransaction = async () => {
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
   >
-    Send funds!
+    <h2
+      :style="{
+        padding: '10px',
+      }"
+    >
+      Send funds!
+    </h2>
   </div>
 </template>
