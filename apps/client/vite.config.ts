@@ -1,9 +1,8 @@
 import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
+import plugins from "./plugins";
 
 export default defineConfig({
-  plugins: [vue(), nodePolyfills()],
+  plugins: plugins,
   server: {
     headers: {
       "Access-Control-Allow-Origin": "*",
