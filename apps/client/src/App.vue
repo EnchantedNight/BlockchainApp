@@ -4,20 +4,22 @@ import Wallet from "./components/Wallet.vue";
 import Pay from "./components/Pay.vue";
 
 onMounted(() => {
-  window.Telegram.WebApp.expand();
-  window.Telegram.WebApp.disableVerticalSwipes();
-  window.Telegram.WebApp.ready();
+  if (window.Telegram?.WebApp) {
+    window.Telegram.WebApp.expand();
+    window.Telegram.WebApp.disableVerticalSwipes();
+    window.Telegram.WebApp.ready();
 
-  window.Telegram.WebApp.onEvent("viewportChanged", () => {
-    document.documentElement.style.setProperty(
-      "--tg-viewport-height",
-      `${window.Telegram.WebApp.viewportHeight}px`,
-    );
-    document.documentElement.style.setProperty(
-      "--tg-viewport-stable-height",
-      `${window.Telegram.WebApp.viewportStableHeight}px`,
-    );
-  });
+    window.Telegram.WebApp.onEvent("viewportChanged", () => {
+      document.documentElement.style.setProperty(
+        "--tg-viewport-height",
+        `${window.Telegram.WebApp.viewportHeight}px`,
+      );
+      document.documentElement.style.setProperty(
+        "--tg-viewport-stable-height",
+        `${window.Telegram.WebApp.viewportStableHeight}px`,
+      );
+    });
+  }
 });
 </script>
 

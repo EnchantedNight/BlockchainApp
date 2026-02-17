@@ -12,5 +12,11 @@
     "outDir": "./dist",
     "allowJs": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/types/auto.d.ts", "src/**/*.vue"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/types/auto.d.ts",
+    "src/**/*.vue",
+    "main.ts"
+  ]
 }

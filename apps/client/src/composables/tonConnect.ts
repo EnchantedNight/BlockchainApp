@@ -5,7 +5,7 @@ const wallet = ref(tonConnectUI.wallet);
 const connected = ref(tonConnectUI.connected);
 const account = ref(tonConnectUI.account);
 const connector = ref(tonConnectUI.connector);
-const address = ref(tonConnectUI.account.address);
+const address = ref(tonConnectUI.account?.address);
 
 tonConnectUI.onStatusChange((newWallet) => {
   wallet.value = newWallet;
@@ -16,9 +16,9 @@ tonConnectUI.onStatusChange((newWallet) => {
 });
 
 export const useTonConnect = (): {
-  wallet: Ref<Wallet>;
+  wallet: Ref<Wallet | null>;
   connected: Ref<boolean>;
-  account: Ref<Account>;
+  account: Ref<Account | null>;
   connector: Ref<ITonConnect>;
   address: Ref<string>;
 } => {
