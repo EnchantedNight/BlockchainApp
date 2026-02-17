@@ -21,10 +21,13 @@ jobs:
       - name: Format code
         run: bun fmt
 
-      - name: Playwright tests
+      - name: Test (playwright)
         env:
           WALLET_MNEMONIC: ${{ secrets.WALLET_MNEMONIC }}
-        run: bun run test --filter client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          xvfb-run --auto-servernum bun turbo run test --filter=client
 
       - name: Build
         run: bun run build --filter client
