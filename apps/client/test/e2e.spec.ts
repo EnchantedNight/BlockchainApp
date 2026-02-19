@@ -12,7 +12,16 @@ test("lab", async ({ context, wallet }) => {
       console.log(`APP ERROR: ${msg.text()}`);
     }
   });
-  await app.goto("/");
+
+  // Fetch the bypass secret you added to your environment variables
+  const bypassToken = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+
+  // Attach it as a query parameter to force Vercel to issue a bypass cookie
+  const targetUrl = bypassToken
+    ? `/?x-vercel-protection-bypass=${bypassToken}`
+    : "/";
+
+  await app.goto(targetUrl);
 
   const connectButton = app.locator("#connectButton button");
 
