@@ -49,8 +49,7 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: "./apps/client"
-          vercel-args: |
-            --name ${{ github.run_id }}-${{ github.run_number }}
+          vercel-version: latest
 
       - name: Install Playwright
         run: yarn playwright install --with-deps chromium
