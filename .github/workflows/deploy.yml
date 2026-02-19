@@ -56,8 +56,6 @@ jobs:
       - name: xvfb + E2E Tests
         env:
           WALLET_MNEMONIC: ${{ secrets.WALLET_MNEMONIC }}
-          BASE_URL: ${{ steps.preview.outputs.preview-url }}
-          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y xvfb libxss1 libnss3 libatk-bridge2.0-0 libdrm2 libxkbcommon0
