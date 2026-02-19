@@ -2,24 +2,35 @@ import { TonConnectWidget, testWith } from "@tonconnect/qa";
 import { tonkeeperFixture } from "./utils/fixtures.ts";
 
 const test = testWith(tonkeeperFixture(process.env.WALLET_MNEMONIC!));
-
 const { expect } = test;
 
 test("lab", async ({ context, wallet }) => {
   const app = await context.newPage();
+
+  // 1. FORCE THE BYPASS HEADER ON ALL NETWORK REQUESTS
+  const bypassSecret = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+  if (bypassSecret) {
+    await app.route("**", (route) => {
+      const headers = route.request().headers();
+      headers["x-vercel-protection-bypass"] = bypassSecret;
+      route.continue({ headers });
+    });
+  }
+
+  // 2. NETWORK DEBUGGER: Find out EXACTLY who is returning 403
+  app.on("response", (response) => {
+    if (response.status() === 403 || response.status() === 401) {
+      console.log(`NETWORK BLOCKED (${response.status()}): ${response.url()}`);
+    }
+  });
+
   app.on("console", (msg) => {
     if (msg.type() === "error") {
       console.log(`APP ERROR: ${msg.text()}`);
     }
   });
 
-  const bypassToken = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
-
-  const targetUrl = bypassToken
-    ? `/?x-vercel-protection-bypass=${bypassToken}`
-    : "/";
-
-  await app.goto(targetUrl);
+  await app.goto("/");
 
   const connectButton = app.locator("#connectButton button");
 
