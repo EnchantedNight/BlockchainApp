@@ -34,10 +34,7 @@ test("lab", async ({ context, wallet }) => {
   for (let i = 0; i < 3; i++) {
     try {
       console.log(`Click attempt ${i + 1}...`);
-      await Promise.all([
-        wallet.accept(true, 10000),
-        sendFundsButton.click()
-      ]);
+      await Promise.all([wallet.accept(true, 10000), sendFundsButton.click()]);
       success = true;
       break;
     } catch (e) {
