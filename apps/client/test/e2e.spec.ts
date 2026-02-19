@@ -7,15 +7,16 @@ const { expect } = test;
 test("lab", async ({ context, wallet }) => {
   const app = await context.newPage();
 
-  // 1. FORCE THE BYPASS HEADER ON ALL NETWORK REQUESTS
+  // 1. INJECT HEADER AT THE PAGE LEVEL ONLY
+  // This bypasses Vercel without poisoning the extension's background context!
   const bypassSecret = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+  if (bypassSecret) {
+    await app.setExtraHTTPHeaders({
+      "x-vercel-protection-bypass": bypassSecret,
+    });
+  }
 
-  // Force Vercel to issue a bypass cookie via the URL query
-  const targetUrl = bypassSecret
-    ? `/?x-vercel-protection-bypass=${bypassSecret}`
-    : "/";
-
-  // 2. NETWORK DEBUGGER: Find out EXACTLY who is returning 403
+  // 2. NETWORK DEBUGGER (Keep this just in case!)
   app.on("response", (response) => {
     if (response.status() === 403 || response.status() === 401) {
       console.log(`NETWORK BLOCKED (${response.status()}): ${response.url()}`);
@@ -28,7 +29,8 @@ test("lab", async ({ context, wallet }) => {
     }
   });
 
-  await app.goto(targetUrl);
+  // 3. Navigate to the clean root URL (the header will authenticate us)
+  await app.goto("/");
 
   const connectButton = app.locator("#connectButton button");
 
