@@ -9,13 +9,11 @@ test("lab", async ({ context, wallet }) => {
 
   // 1. FORCE THE BYPASS HEADER ON ALL NETWORK REQUESTS
   const bypassSecret = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
-  if (bypassSecret) {
-    await app.route("**", (route) => {
-      const headers = route.request().headers();
-      headers["x-vercel-protection-bypass"] = bypassSecret;
-      route.continue({ headers });
-    });
-  }
+
+  // Force Vercel to issue a bypass cookie via the URL query
+  const targetUrl = bypassSecret
+    ? `/?x-vercel-protection-bypass=${bypassSecret}`
+    : "/";
 
   // 2. NETWORK DEBUGGER: Find out EXACTLY who is returning 403
   app.on("response", (response) => {
@@ -30,7 +28,7 @@ test("lab", async ({ context, wallet }) => {
     }
   });
 
-  await app.goto("/");
+  await app.goto(targetUrl);
 
   const connectButton = app.locator("#connectButton button");
 
