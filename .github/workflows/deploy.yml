@@ -61,7 +61,8 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y xvfb libxss1 libnss3 libatk-bridge2.0-0 libdrm2 libxkbcommon0
-          xvfb-run yarn playwright test
+          # Add the --config flag to point to your client app's config
+          xvfb-run yarn playwright test --config=apps/client/playwright.config.ts
 
   deploy:
     needs: [build, e2e]
