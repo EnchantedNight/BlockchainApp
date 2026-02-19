@@ -1,6 +1,9 @@
 {
   "name": "contracts",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "bp": "blueprint",
     "start": "blueprint run",
