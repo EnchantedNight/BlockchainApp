@@ -8,9 +8,12 @@ import { Tonkeeper } from "./tonKeeper.js";
 
 export const tonkeeperFixture = (mnemonic: string, slowMo = 0) => {
   return base.extend<{ wallet: Tonkeeper }>({
-    context: async ({ context: _ }, use) => {
+    context: async ({ context: _, baseURL, headless }, use) => {
       const tonkeeperPath = await tonkeeperExtension();
-      const context = await launchPersistentContext(tonkeeperPath, slowMo);
+      const context = await launchPersistentContext(tonkeeperPath, slowMo, {
+        baseURL,
+        headless,
+      });
       await use(context);
       await context.close();
     },

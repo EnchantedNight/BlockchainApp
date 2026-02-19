@@ -17,17 +17,38 @@ index 2eefdf0..c0f447f 100644
 +export { getExtensionId } from './util.js';
  //# sourceMappingURL=index.js.map
 diff --git a/node_modules/@tonconnect/qa/dist/test.js b/node_modules/@tonconnect/qa/dist/test.js
-index f813806..c63d491 100644
+index f813806..98dd339 100644
 --- a/node_modules/@tonconnect/qa/dist/test.js
 +++ b/node_modules/@tonconnect/qa/dist/test.js
-@@ -1,6 +1,6 @@
+@@ -1,19 +1,23 @@
  import { chromium } from '@playwright/test';
  import { mergeTests, test as base } from '@playwright/test';
 -import { WalletExtension } from './WalletExtension';
+-export function launchPersistentContext(extensionPath, slowMo = 0) {
 +import { WalletExtension } from './WalletExtension.js';
- export function launchPersistentContext(extensionPath, slowMo = 0) {
++export function launchPersistentContext(extensionPath, slowMo = 0, options = {}) {
      const browserArgs = [
          `--disable-extensions-except=${extensionPath}`,
+         `--load-extension=${extensionPath}`,
++        ...(options.args || [])
+     ];
+-    if (process.env.HEADLESS) {
+-        browserArgs.push('--headless=new');
++    if (process.env.HEADLESS || options.headless === 'new') {
++        if (!browserArgs.includes('--headless=new')) {
++            browserArgs.push('--headless=new');
++        }
+         if (slowMo > 0) {
+             console.warn('[WARNING] Slow motion makes no sense in headless mode. It will be ignored!');
+         }
+     }
+     return chromium.launchPersistentContext('', {
+-        headless: extensionPath === '',
++        ...options,
++        headless: extensionPath === '' ? true : (options.headless === 'new' ? true : options.headless),
+         args: browserArgs,
+         slowMo: process.env.HEADLESS ? 0 : slowMo,
+     });
 diff --git a/node_modules/@tonconnect/qa/dist/tonkeeper/Tonkeeper.js b/node_modules/@tonconnect/qa/dist/tonkeeper/Tonkeeper.js
 index fc10f5a..9610a54 100644
 --- a/node_modules/@tonconnect/qa/dist/tonkeeper/Tonkeeper.js
