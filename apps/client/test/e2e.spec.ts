@@ -13,10 +13,8 @@ test("lab", async ({ context, wallet }) => {
     }
   });
 
-  // Fetch the bypass secret you added to your environment variables
   const bypassToken = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
 
-  // Attach it as a query parameter to force Vercel to issue a bypass cookie
   const targetUrl = bypassToken
     ? `/?x-vercel-protection-bypass=${bypassToken}`
     : "/";
