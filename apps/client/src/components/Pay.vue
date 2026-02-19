@@ -3,7 +3,9 @@ import { CHAIN } from "@tonconnect/sdk";
 import { beginCell } from "@ton/core";
 import { WalletUtils } from "@utils/wallet";
 
-const { account, connector, connected, address } = useTonConnect();
+import tonConnectUI from "../tonClient";
+
+const { account, connected, address } = useTonConnect();
 const isHovered = ref(false);
 
 const sendTransaction = async () => {
@@ -19,7 +21,6 @@ const sendTransaction = async () => {
   const transaction = {
     validUntil: Math.floor(Date.now() / 1000) + 300,
     network: CHAIN.TESTNET,
-    from: rawAddress,
     messages: [
       {
         address: rawAddress,
@@ -30,7 +31,7 @@ const sendTransaction = async () => {
   };
 
   try {
-    await connector.value!!.sendTransaction(transaction);
+    await tonConnectUI.sendTransaction(transaction);
   } catch (e) {
     console.error("Transaction failed", e);
     throw new Error("Error sending tx!");

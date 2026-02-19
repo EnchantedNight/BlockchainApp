@@ -24,7 +24,7 @@ test("lab", async ({ context, wallet }) => {
   await expect(accountSelector).toContainText("kQ");
 
   console.log("Wallet connected, waiting for UI to stabilize...");
-  await app.waitForTimeout(2000);
+  await app.waitForTimeout(5000);
 
   console.log("Sending funds and waiting for wallet...");
   const sendFundsButton = app.locator("#sendFundsButton");
