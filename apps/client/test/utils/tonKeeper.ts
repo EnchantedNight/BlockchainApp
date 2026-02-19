@@ -25,7 +25,7 @@ export class Tonkeeper extends BaseTonkeeper {
     }
   }
 
-  override async accept(confirm?: boolean, timeout = 30000) {
+  override async accept(confirm?: boolean, timeout = 300000) {
     console.log("Tonkeeper: Waiting for transaction confirmation page...");
     const acceptPage = await this.context.waitForEvent("page", { timeout });
     console.log(

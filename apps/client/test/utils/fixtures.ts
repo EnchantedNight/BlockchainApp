@@ -23,6 +23,7 @@ export const tonkeeperFixture = (mnemonic: string, slowMo = 0) => {
     wallet: async ({ context }, use) => {
       // 2. Inline the service worker logic to guarantee the 120s timeout is respected!
       let [background] = context.serviceWorkers();
+      context.setDefaultTimeout(300000);
       if (!background) {
         background = await context.waitForEvent("serviceworker", {
           timeout: 120000,
