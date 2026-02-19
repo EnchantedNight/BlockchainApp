@@ -32,6 +32,7 @@ const sendTransaction = async () => {
 
   try {
     await tonConnectUI.sendTransaction(transaction);
+    console.log("INFO Transaction sent successfully");
   } catch (e) {
     console.error("Transaction failed", e);
     throw new Error("Error sending tx!");
