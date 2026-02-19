@@ -19,7 +19,7 @@ jobs:
           cache: "yarn"
 
       - name: Install deps
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --ignore-engines
 
       - name: Format
         run: yarn turbo run fmt
@@ -40,7 +40,7 @@ jobs:
           cache: "yarn"
 
       - name: Install deps
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --ignore-engines
 
       - name: Deploy Preview
         id: preview
