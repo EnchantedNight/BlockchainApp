@@ -7,7 +7,7 @@ export default defineConfig({
   timeout: 120000,
   use: {
     baseURL: process.env.BASE_URL || "http://localhost:5173",
-    headless: !!process.env.CI,
+    headless: false,
     actionTimeout: 120000,
   },
   webServer: process.env.BASE_URL
