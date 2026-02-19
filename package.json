@@ -1,14 +1,12 @@
 {
   "name": "TonMonorepo",
+  "packageManager": "yarn@1.22.22",
   "devDependencies": {
+    "@types/node": "^25.3.0",
     "prettier": "^3.7.4",
     "turbo": "^2.8.3",
     "typescript": "5.9.2"
   },
-  "engines": {
-    "node": ">=18"
-  },
-  "packageManager": "bun@1.3.9",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -19,8 +17,5 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ],
-  "patchedDependencies": {
-    "@tonconnect/qa@1.0.0-alpha.0": "patches/@tonconnect%2Fqa@1.0.0-alpha.0.patch"
-  }
+  ]
 }

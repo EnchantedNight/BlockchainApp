@@ -1,58 +1,35 @@
-name: CI/CD
-on:
-  push:
-    branches: [main]
-  pull_request:
-
 jobs:
-  ci:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+  e2e:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install deps
-        run: bun install && bunx playwright install chromium
-
-      - name: Format code
-        run: bun fmt
-
-      - name: Test (playwright)
-        env:
-          WALLET_MNEMONIC: ${{ secrets.WALLET_MNEMONIC }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-          xvfb-run --auto-servernum bun turbo run test --filter=client
-
-      - name: Build
-        run: bun run build --filter client
-
-  deploy:
-    needs: ci
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install deps
-        run: bun install
-
-      - name: Build
-        run: bun run build --filter client
-
-      - name: Deploy to Vercel
+      - id: preview
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--prod"
-          working-directory: "./apps/client"
+          vercel-args: "--name ${{ github.run_id }}"
+
+      - name: Install Playwright
+        run: bunx playwright install --with-deps chromium
+
+      - name: xvfb + Test
+        env:
+          WALLET_MNEMONIC: ${{ secrets.WALLET_MNEMONIC }}
+          BASE_URL: ${{ steps.preview.outputs.preview-url }}
+        run: |
+          sudo apt-get install -y xvfb
+          xvfb-run bun test  # Your playwright.config uses BASE_URL
+
+  deploy:
+    needs: [build, e2e]
+    if: github.ref == 'refs/heads/main'

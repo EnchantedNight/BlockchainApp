@@ -18,12 +18,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "noImplicitOverride": true,
-    "types": [
-      "bun",
-      "@types/node",
-      "@playwright/test",
-      "@types/telegram-web-app"
-    ]
+    "types": ["node", "@playwright/test", "@types/telegram-web-app"]
   },
   "include": [
     "src/**/*.ts",
