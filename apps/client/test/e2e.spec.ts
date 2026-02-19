@@ -56,7 +56,7 @@ test("lab", async ({ context, wallet }) => {
       success = true;
       break;
     } catch (e) {
-      console.log(`Click attempt ${i + 1} failed: ${e.message}`);
+      console.log(`Click attempt ${i + 1} failed`);
       await app.waitForTimeout(2000);
     }
   }

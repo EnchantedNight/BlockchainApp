@@ -16,17 +16,32 @@ index 2eefdf0..c0f447f 100644
 +export { tonkeeperExtension } from './tonkeeper/tonkeeperExtension.js';
 +export { getExtensionId } from './util.js';
  //# sourceMappingURL=index.js.map
+diff --git a/node_modules/@tonconnect/qa/dist/test.d.ts b/node_modules/@tonconnect/qa/dist/test.d.ts
+index 0860611..8358c69 100644
+--- a/node_modules/@tonconnect/qa/dist/test.d.ts
++++ b/node_modules/@tonconnect/qa/dist/test.d.ts
+@@ -1,6 +1,8 @@
+-import { type BrowserContext, type Fixtures, type TestType } from '@playwright/test';
++import { type BrowserContext, type Fixtures, type TestType, type BrowserContextOptions } from '@playwright/test';
+ import { WalletExtension } from './WalletExtension';
+-export declare function launchPersistentContext(extensionPath: string, slowMo?: number): Promise<BrowserContext>;
++export declare function launchPersistentContext(extensionPath: string, slowMo?: number, options?: BrowserContextOptions, extraHTTPHeaders?: {
++    [key: string]: string | undefined;
++}): Promise<BrowserContext>;
+ export declare function testWith<CustomFixtures extends Fixtures>(customFixtures: TestType<CustomFixtures, object>): TestType<CustomFixtures, object>;
+ export type WalletFixture = {
+     context: BrowserContext;
 diff --git a/node_modules/@tonconnect/qa/dist/test.js b/node_modules/@tonconnect/qa/dist/test.js
-index f813806..98dd339 100644
+index f813806..25df9e4 100644
 --- a/node_modules/@tonconnect/qa/dist/test.js
 +++ b/node_modules/@tonconnect/qa/dist/test.js
-@@ -1,19 +1,23 @@
+@@ -1,19 +1,24 @@
  import { chromium } from '@playwright/test';
  import { mergeTests, test as base } from '@playwright/test';
 -import { WalletExtension } from './WalletExtension';
 -export function launchPersistentContext(extensionPath, slowMo = 0) {
 +import { WalletExtension } from './WalletExtension.js';
-+export function launchPersistentContext(extensionPath, slowMo = 0, options = {}) {
++export function launchPersistentContext(extensionPath, slowMo = 0, options = {}, extraHTTPHeaders = undefined) {
      const browserArgs = [
          `--disable-extensions-except=${extensionPath}`,
          `--load-extension=${extensionPath}`,
@@ -45,6 +60,7 @@ index f813806..98dd339 100644
      return chromium.launchPersistentContext('', {
 -        headless: extensionPath === '',
 +        ...options,
++        extraHTTPHeaders: extraHTTPHeaders || options.extraHTTPHeaders,
 +        headless: extensionPath === '' ? true : (options.headless === 'new' ? true : options.headless),
          args: browserArgs,
          slowMo: process.env.HEADLESS ? 0 : slowMo,
