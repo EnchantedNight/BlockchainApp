@@ -15,17 +15,17 @@ jobs:
       - name: Setup Yarn
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: "yarn"
 
       - name: Install deps
-        run: yarn install --frozen-lockfile --ignore-engines
+        run: yarn install --frozen-lockfile
 
       - name: Format
-        run: yarn turbo run fmt --ignore-engines
+        run: yarn turbo run fmt
 
       - name: Build
-        run: yarn --ignore-engines turbo run build --filter=client
+        run: yarn turbo run build --filter=client
 
   e2e:
     needs: build
@@ -40,8 +40,7 @@ jobs:
           cache: "yarn"
 
       - name: Install deps
-        run: yarn install --frozen-lockfile --ignore-engines
-
+        run: yarn install --frozen-lockfile
       - name: Deploy Preview
         id: preview
         uses: amondnet/vercel-action@v25
@@ -53,7 +52,7 @@ jobs:
             --name ${{ github.run_id }}-${{ github.run_number }}
 
       - name: Install Playwright
-        run: yarn --ignore-engines playwright install --with-deps chromium
+        run: yarn playwright install --with-deps chromium
 
       - name: xvfb + E2E Tests
         env:
@@ -78,10 +77,9 @@ jobs:
           cache: "yarn"
 
       - name: Install deps
-        run: yarn install --frozen-lockfile --ignore-engines
-
+        run: yarn install --frozen-lockfile
       - name: Build
-        run: yarn --ignore-engines turbo run build --filter=client
+        run: yarn turbo run build --filter=client
 
       - name: Deploy Production
         uses: amondnet/vercel-action@v25
