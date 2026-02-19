@@ -34,7 +34,12 @@ export const tonkeeperFixture = (mnemonic: string, slowMo = 0) => {
       const tonkeeper = new Tonkeeper(context, extensionId);
 
       if (mnemonic) {
+        console.log("Mnemonic found!!! #################");
         await tonkeeper.importWallet(mnemonic);
+      } else {
+        console.log(
+          "CRITICAL: No mnemonic provided, tests will fail! #################",
+        );
       }
 
       await use(tonkeeper);
