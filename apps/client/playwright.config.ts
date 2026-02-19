@@ -8,7 +8,11 @@ export default defineConfig({
     baseURL: process.env.BASE_URL || "http://localhost:5173",
     headless: !!process.env.CI,
   },
-  webServer: {
-    command: "bun dev",
-  },
+  webServer: process.env.BASE_URL
+    ? undefined
+    : {
+        command: "yarn dev",
+        url: "http://localhost:5173",
+        reuseExistingServer: true,
+      },
 });

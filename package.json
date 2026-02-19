@@ -6,6 +6,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
+    "patch-package": "^8.0.0",
     "prettier": "^3.7.4",
     "turbo": "^2.8.3",
     "typescript": "5.9.2"
@@ -15,6 +16,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "fmt": "turbo run fmt",
+    "postinstall": "patch-package",
     "test": "turbo run test"
   },
   "workspaces": [

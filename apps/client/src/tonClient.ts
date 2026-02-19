@@ -1,8 +1,7 @@
 import { THEME, TonConnectUI } from "@tonconnect/ui";
 
 export default new TonConnectUI({
-  manifestUrl:
-    "https://blockchain-client-tau.vercel.app/tonconnect-manifest.json",
+  manifestUrl: `${window.location.origin}/tonconnect-manifest.json`,
   analytics: {
     mode: "off",
   },
