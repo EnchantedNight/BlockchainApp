@@ -1,35 +1,93 @@
+name: CI/CD
+on:
+  push:
+    branches: [main]
+  pull_request:
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+
+      - name: Install deps
+        run: yarn install --frozen-lockfile
+
+      - name: Format
+        run: yarn turbo run fmt
+
+      - name: Build
+        run: yarn turbo run build --filter=client
 
   e2e:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install
 
-      - id: preview
+      - name: Setup Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+
+      - name: Install deps
+        run: yarn install --frozen-lockfile
+
+      - name: Deploy Preview
+        id: preview
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--name ${{ github.run_id }}"
+          vercel-args: |
+            --name ${{ github.run_id }}-${{ github.run_number }}
 
       - name: Install Playwright
-        run: bunx playwright install --with-deps chromium
+        run: yarn playwright install --with-deps chromium
 
-      - name: xvfb + Test
+      - name: xvfb + E2E Tests
         env:
           WALLET_MNEMONIC: ${{ secrets.WALLET_MNEMONIC }}
           BASE_URL: ${{ steps.preview.outputs.preview-url }}
         run: |
-          sudo apt-get install -y xvfb
-          xvfb-run bun test  # Your playwright.config uses BASE_URL
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libxss1 libnss3 libatk-bridge2.0-0 libdrm2 libxkbcommon0
+          xvfb-run yarn playwright test
 
   deploy:
     needs: [build, e2e]
+    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+
+      - name: Install deps
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn turbo run build --filter=client
+
+      - name: Deploy Production
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "--prod"
+          working-directory: "./apps/client"
