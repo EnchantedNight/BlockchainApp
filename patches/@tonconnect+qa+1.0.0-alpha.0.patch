@@ -76,3 +76,17 @@ index c09e88d..2ae8a32 100644
  export const tonkeeperFixture = (mnemonic, slowMo = 0) => {
      return test.extend({
          context: async ({ context: _ }, use) => {
+diff --git a/node_modules/@tonconnect/qa/dist/util.js b/node_modules/@tonconnect/qa/dist/util.js
+index 2162d2b..c72e3e9 100644
+--- a/node_modules/@tonconnect/qa/dist/util.js
++++ b/node_modules/@tonconnect/qa/dist/util.js
+@@ -1,7 +1,7 @@
+-export async function getExtensionId(context) {
++export async function getExtensionId(context, timeout = 30000) {
+     let [background] = context.serviceWorkers();
+     if (!background) {
+-        background = await context.waitForEvent('serviceworker');
++        background = await context.waitForEvent('serviceworker', { timeout });
+     }
+     const extensionId = background.url().split('/')[2];
+     if (!extensionId) {

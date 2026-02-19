@@ -18,7 +18,10 @@ export const tonkeeperFixture = (mnemonic: string, slowMo = 0) => {
       await context.close();
     },
     wallet: async ({ context }, use) => {
-      const tonkeeper = new Tonkeeper(context, await getExtensionId(context));
+      const tonkeeper = new Tonkeeper(
+        context,
+        await getExtensionId(context, 60000),
+      );
       if (mnemonic) {
         await tonkeeper.importWallet(mnemonic);
       }

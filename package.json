@@ -18,7 +18,7 @@
     "fmt": "turbo run fmt",
     "postinstall": "patch-package",
     "test": "turbo run test",
-    "deploy:cl": "turbo run test --filter=client && git add . && git commit -m \"deploy $(date +%s)\""
+    "deploy:cl": "turbo run test --filter=client && git add . && git commit -m \"deploy $(date +%s)\" && git push"
   },
   "workspaces": [
     "apps/*",
